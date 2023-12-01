@@ -21,7 +21,7 @@
 ### Getting Homography matrix
 - To facilitate the computation of homography parameters, we developed a function designed to take a set of corresponding image points and derive the associated 3x3 homography matrix, denoted as H. This matrix plays a pivotal role in transforming any point, represented as p in one view, to its corresponding homogeneous coordinates, p', in the second view. The function expects a list of n (where n is greater than or equal to 4) pairs of corresponding points from the two views, each specified with its 2D image coordinates. Utilizing a system of linear equations Ax = b, we stack the 8 unknowns of H into an 8-vector x, where the 2n-vector b contains image points from one view, and the 2n x 8 matrix A is appropriately filled. The resulting system, λp = Hp, with H3,3 set to 1, allows us to solve for the unknown homography matrix parameters. This function lays the foundation for accurate homography computations essential for subsequent image transformations and mosaics.
 
-- In this part choosing the points where very critical as by shifting one point the warped image could be affected highlt.
+- In this part choosing the points where very critical as by shifting one point the warped image could be affected highly.
 ![Alt text](image-4.png)
 ![Alt text](image-2.png)
 ![Alt text](image-3.png)
