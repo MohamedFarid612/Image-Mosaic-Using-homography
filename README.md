@@ -129,32 +129,16 @@ The function returns the final warped image (ret_img) after handling both forwar
 ![Alt text](image-19.png)
 ![Alt text](image-20.png)
 
+- warped the panorama one
+![Alt text](image-21.png)
+
+- Added them to one image
+![Alt text](image-22.png)
+
 ### Adding all together
 - Our code essentially takes the input image, applies a binary threshold to create a mask, and then replaces the pixel values in the resulting mask with the corresponding pixel values from the input image, resulting in a modified black image where only the pixels that satisfy the specified threshold are preserved.
 ![Alt text](images/2.png)
 
-## Road Lane Detection
-This Jupyter notebook, `Hough.ipynb`, demonstrates the use of the Hough Transform for image processing tasks, such as line detection in road lanes.
-
-![Alt text](images/road_lanes.png)
-
-### Overview
-
-The Hough Transform is a feature extraction technique used in image analysis, computer vision, and digital image processing. It's particularly used for detecting imperfect instances of objects within a certain class of shapes, with circles and lines being the most common shapes.
-
-### Hough Transform Steps
-
-#### 1. Edge Detection
-
-The Hough Transform is most commonly used for detecting lines in an image, so the first step is to apply an edge detection algorithm, such as the Canny edge detector, to the image. The output of the Canny edge detector is a binary image with white pixels tracing out the detected edges and black pixels everywhere else.
-
-#### 2. Mapping of Edge Points to the Hough Space and Accumulator
-
-The next step is to map the edge points from the image space to the Hough space and accumulator. The Hough space is a parameter space defined by the parameters of the object we're trying to detect. In the case of lines, the Hough space is defined by the two parameters of a line: slope and intercept. The accumulator is a 2D array whose dimensions are determined by the range of values for the parameters. Each cell in the accumulator represents a possible line in the image space. The value of each cell is the number of edge points that could be part of the line represented by that cell.
-
-#### 3. Interpretation of the Accumulator to Yield Lines
-
-The final step is to interpret the accumulator to yield lines. The cells in the accumulator with the highest values represent the lines that are most likely to be present in the image. The threshold for determining whether a cell represents a line is determined by the minimum number of edge points needed to detect a line. For each cell that meets the threshold, the corresponding line is drawn on the original image.
 
 
 
