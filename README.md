@@ -141,9 +141,6 @@ The function returns the final warped image (ret_img) after handling both forwar
 
 ![Alt text](image-22.png)
 
-### Adding all together
-- Our code essentially takes the input image, applies a binary threshold to create a mask, and then replaces the pixel values in the resulting mask with the corresponding pixel values from the input image, resulting in a modified black image where only the pixels that satisfy the specified threshold are preserved.
-![Alt text](images/2.png)
 
 
 
