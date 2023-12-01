@@ -3,6 +3,14 @@
 > This readme file is a summary of the project. For more details, please refer to the notebooks.
 
 ## Table of Contents
+- [Introduction](#introduction)
+- [Steps](#steps)
+  - [Getting Correspondances](#getting-correspondances)
+  - [Getting Homography matrix](#getting-homography-matrix)
+  - [Image Warping](#image-warping)
+  - [Adding photos to make a Panorama](#adding-photos-to-make-a-panorama)
+  - [BONUS](#bonus)
+- [Authors](#authors)
 
 
 
