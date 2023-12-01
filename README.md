@@ -68,7 +68,7 @@ Return Result:
 
 The function returns the warped image (ret_img), where each pixel represents the average color value of the corresponding region in the input image after applying the homography transformation.
 ```
-![Alt text](image-6.png)
+![Alt text](image-16.png)
 
 ### Algorithm for Warping and Inverse Warping
 ```
@@ -98,19 +98,27 @@ Update the pixel value in the warped image by averaging the values from the orig
 Return Result:
 The function returns the final warped image (ret_img) after handling both forward and inverse warping. This approach minimizes holes and inaccuracies in the output image, providing a more accurate representation of the transformed input.
 ```
-### Applying Bilateral Filter
-- The bilateral filter is a non-linear, edge-preserving smoothing filter commonly used in image processing. It aims to reduce noise while preserving the important edges in an image. The strength of the bilateral filter is controlled by several parameters: size, color_strength, and positional_strength.The size parameter determines the neighborhood size over which the filter operates. A larger size considers a wider range of pixels in the filtering process.The color_strength parameter controls the filter's sensitivity to the color differences between neighboring pixels. A higher value leads to a stronger effect of color similarity in the filtering process.The positional_strength parameter determines the filter's sensitivity to the spatial distance between neighboring pixels. A higher value causes the filter to be more influenced by pixel positions.
-
-- The bilateral filter is effective in preserving edges while smoothing flat regions, making it a great choice for automatic cartoonification or painting filters. However, the bilateral filter can be extremely slow, taking seconds or even minutes to process an image. To achieve a balance between performance and quality, we can utilize a trick of performing bilateral filtering at a lower resolution. This lower-resolution filtering produces a similar effect to filtering at full resolution but significantly reduces the computational cost and improves processing speed.
-
-- To apply the bilateral filter, the first step is to convert the input image to grayscale if it's a color image. Next, determine the size of the filter kernel, typically a square or circular window centered on each pixel. Calculate the standard deviations for both the spatial and intensity domains, controlling the range of influence for neighboring pixels. Iterate over each pixel in the image and, for each pixel, iterate over the pixels within the kernel window. Compute the spatial distance using Euclidean distance between the central pixel and its neighboring pixel within the kernel. Compute the intensity difference between them and calculate the weight for each neighboring pixel using a Gaussian function that considers both spatial and intensity distances. Multiply the weight by the intensity value of the neighboring pixel and sum up the weighted intensity values within the kernel window. Then, compute the normalization factor by summing up the weights and divide the sum of the weighted intensity values by the normalization factor to obtain the filtered pixel value. Repeat these steps for all pixels in the image, resulting in the final output of the bilateral filtering process.
+![Alt text](image-7.png)
+![Alt text](image-8.png)
 
 
+### Adding photos to make a Panorama
+- In the process of combining a warped image with a main image, two efficient techniques were employed. The first technique utilized direct assignment and slicing, seamlessly integrating the warped image into a specified region of the main image. This straightforward approach ensures a concise and visually coherent result. The second technique involved conditional element-wise assignment, creating a new matrix that selectively incorporated pixels from either the warped or main image based on specific conditions. This method offers more control over the merging process, allowing for customization based on pixel values. Both techniques contribute to the successful fusion of images in the context of homography-based transformations, providing flexibility and clarity in the final output.
+![Alt text](image-9.png)
+![Alt text](image-10.png)
 
-- positional_strength Threshold: The spatial threshold typically represents the size of the neighborhood and is often defined as a positive, non-zero value. Common values for the spatial threshold range from 1 to 10, where smaller values result in a more localized effect, while larger values encompass a larger spatial neighborhood for smoothing.
+### BONUS
+- We applied the exact same approaches as the first part
 
-- color_strength Threshold: The range threshold usually represents the similarity in pixel values and can be defined as a positive value. The range threshold can vary widely depending on the image data and the desired effect. Typical values for the range threshold are in the range of 0 to 255, where a lower value restricts smoothing to pixels with very similar values, preserving more details and edges, while a higher value allows for a broader range of pixel values to be considered similar, resulting in more smoothing.![Alt text](images/image-8.png)![Alt text](images/image-5.png)
-
+- Firstly we warped the right-most image to be with the left-most image
+![Alt text](image-11.png)
+![Alt text](image-12.png)
+- Got Correspondances for the two image
+- Calculated the Homography matrix
+- warped the right-most one
+![Alt text](image-14.png)
+- Added them to one image
+![Alt text](image-15.png)
 ### Adding all together
 - Our code essentially takes the input image, applies a binary threshold to create a mask, and then replaces the pixel values in the resulting mask with the corresponding pixel values from the input image, resulting in a modified black image where only the pixels that satisfy the specified threshold are preserved.
 ![Alt text](images/2.png)
@@ -141,8 +149,8 @@ The final step is to interpret the accumulator to yield lines. The cells in the 
 
 
 ## Authors
+- [Mohamed Farid](https://www.github.com/MohamedFarid612)
 - [Yousef Kotp](https://www.github.com/yousefkotp)
-- [Mohammed Farid](https://www.github.com/MohamedFarid612)
-- [Adham Mohammed](https://www.github.com/adhammohamed1)
+- [Adham Mohamed](https://www.github.com/adhammohamed1)
 
 
