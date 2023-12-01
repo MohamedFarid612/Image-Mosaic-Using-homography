@@ -6,7 +6,6 @@
 
 
 
-## Part 1
 ## Introduction
 - In this project, our goal was to develop an image stitcher, seamlessly combining two input images into a unified mosaic using image warping and homographies. We focused on mastering homogeneous coordinates and homography matrices, crucial for transforming and aligning images onto a shared plane. Employing Python and prominent computer vision libraries, we implemented a meticulous solution that computed homography matrices to warp one image into the perspective of another. The report encapsulates our experimental setup, image selection rationale, and the analysis of results, highlighting the effectiveness of our solution in achieving seamless image integration
 
