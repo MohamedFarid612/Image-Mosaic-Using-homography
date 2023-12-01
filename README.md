@@ -1,5 +1,4 @@
 # Image Mosaic Using homography
- # Applying Image Processing Filters For ImageCartoonifying & Road Lane Detection Using Hough Transform
 
 > This readme file is a summary of the project. For more details, please refer to the notebooks.
 
