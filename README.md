@@ -23,16 +23,81 @@
 ### Getting Homography matrix
 - To facilitate the computation of homography parameters, we developed a function designed to take a set of corresponding image points and derive the associated 3x3 homography matrix, denoted as H. This matrix plays a pivotal role in transforming any point, represented as p in one view, to its corresponding homogeneous coordinates, p', in the second view. The function expects a list of n (where n is greater than or equal to 4) pairs of corresponding points from the two views, each specified with its 2D image coordinates. Utilizing a system of linear equations Ax = b, we stack the 8 unknowns of H into an 8-vector x, where the 2n-vector b contains image points from one view, and the 2n x 8 matrix A is appropriately filled. The resulting system, λp = Hp, with H3,3 set to 1, allows us to solve for the unknown homography matrix parameters. This function lays the foundation for accurate homography computations essential for subsequent image transformations and mosaics.
 
-
-
 - In this part choosing the points where very critical as by shifting one point the warped image could be affected highlt.
 ![Alt text](image-4.png)
 ![Alt text](image-2.png)
 ![Alt text](image-3.png)
-### Applying Thresholding & Inverting Image
-- This process effectively applies a binary thresholding operation to the Laplacian image, where pixels with Laplacian values below a certain threshold (in this case, 20) are considered as non-edge regions and set to black, while pixels with Laplacian values above or equal to the threshold are considered as edge regions and remain white. The resulting thresholded image is then displayed with a title indicating its purpose![Alt text](images/3.png).![Alt text](images/1.png)
 
 
+### Image Warping
+- The developed function plays a pivotal role in transforming images based on a recovered homography matrix. Taking the homography matrix and an input image as inputs, the function performs an inverse warp to avoid creating holes in the output. By warping points from the source image into the reference frame of the destination, the function computes the bounding box in the new reference frame. This bounding box defines the region to sample pixel values from the source image, with interpolation used to maintain smooth transitions. For color images, the function warps each RGB channel independently and then combines them to form the final output. This approach ensures the preservation of image details during the transformation process, allowing for the generation of a new image that faithfully represents the warped input.
+
+
+- For this part we had two ways to perform same function one of the without using inverse warping as the pseudocode below.
+### Algorithm
+```
+Warp Function Usage Steps:
+Initialization:
+
+Initialize the output image size.
+Create arrays ret and ret_img to store count and sum values for each pixel in the warped image.
+Obtain the input image shape.
+
+Iterate Over Input Image:
+Loop through each pixel in the input image.
+Calculate the warped point (x, y) using the provided homography matrix H.
+
+Determine Nearest Points:
+Identify the four nearest points to the warped point (x, y) by considering the floor and ceiling values.
+Remove duplicate points to ensure uniqueness.
+
+Update Count and Sum Arrays:
+For each of the nearest points:
+Check if the point is inside the output image bounds.
+Increment the count and add pixel values to the sum arrays for each color channel.
+
+Calculate Averages:
+Iterate over the output image size.
+
+For each pixel and color channel:
+Check if the count is non-zero.
+Calculate the average value based on the accumulated sum and count.
+Assign the computed average to the corresponding pixel in the output image.
+
+Return Result:
+
+The function returns the warped image (ret_img), where each pixel represents the average color value of the corresponding region in the input image after applying the homography transformation.
+```
+![Alt text](image-6.png)
+
+### Algorithm for Warping and Inverse Warping
+```
+Warp Inv Function Usage Steps:
+
+Initialization:
+Initialize an array ret_img to store the warped image.
+Obtain the input image shape.
+
+Forward Warping:
+Loop through each pixel in the input image.
+Calculate the forward warped point (x, y) using the provided homography matrix H.
+Assign the color value of the input image at (i, j) to the corresponding location in the ret_img array.
+
+Adjust Image Dimensions:
+Crop the ret_img array to the desired output dimensions (e.g., trimming to a specific width and height).
+Display the warped image using plt.imshow and plt.show.
+
+Inverse Warping to Handle Holes:
+Iterate over each pixel in the warped image.
+Check if the pixel is black (indicating a hole).
+If a hole is detected:
+Perform inverse warping to find the corresponding point in the original image using the inverse of the homography matrix.
+Calculate the 4 nearest points to the inverse warped point.
+Update the pixel value in the warped image by averaging the values from the original image within the identified region.
+
+Return Result:
+The function returns the final warped image (ret_img) after handling both forward and inverse warping. This approach minimizes holes and inaccuracies in the output image, providing a more accurate representation of the transformed input.
+```
 ### Applying Bilateral Filter
 - The bilateral filter is a non-linear, edge-preserving smoothing filter commonly used in image processing. It aims to reduce noise while preserving the important edges in an image. The strength of the bilateral filter is controlled by several parameters: size, color_strength, and positional_strength.The size parameter determines the neighborhood size over which the filter operates. A larger size considers a wider range of pixels in the filtering process.The color_strength parameter controls the filter's sensitivity to the color differences between neighboring pixels. A higher value leads to a stronger effect of color similarity in the filtering process.The positional_strength parameter determines the filter's sensitivity to the spatial distance between neighboring pixels. A higher value causes the filter to be more influenced by pixel positions.
 
@@ -73,18 +138,7 @@ The next step is to map the edge points from the image space to the Hough space 
 
 The final step is to interpret the accumulator to yield lines. The cells in the accumulator with the highest values represent the lines that are most likely to be present in the image. The threshold for determining whether a cell represents a line is determined by the minimum number of edge points needed to detect a line. For each cell that meets the threshold, the corresponding line is drawn on the original image.
 
-### Algorithm
-```
-1. Read the image from the file "images/street.png" and convert its color from BGR to RGB.
-2. Apply a median blur to the image to reduce noise.
-3. Convert the blurred image to grayscale.
-4. Apply the Canny edge detection algorithm to the grayscale image.
-5. Extract the region of interest from the image. This region is defined as the lower half of the image, excluding the rightmost 120 pixels.
-6. Initialize the Hough Transform accumulator. This is a 2D array where each cell represents a possible line in the image. The size of the accumulator is determined by the maximum possible value of rho (the distance from the origin to the line) and the range of theta (the angle of the line).
-7. For each non-zero pixel in the region of interest, calculate its rho and theta values for each possible theta, and increment the corresponding cell in the accumulator.
-8. Apply non-maximum suppression to the accumulator to find the local maxima. These represent the most likely lines in the image.
-9. For each local maximum, calculate the parameters of the corresponding line (slope and intercept) and draw the line on the original image.
-```
+
 
 ## Authors
 - [Yousef Kotp](https://www.github.com/yousefkotp)
