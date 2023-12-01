@@ -119,6 +119,16 @@ The function returns the final warped image (ret_img) after handling both forwar
 ![Alt text](image-14.png)
 - Added them to one image
 ![Alt text](image-15.png)
+
+
+- Secondly we Warped the formed panorama to be added to the up-most image
+![Alt text](image-17.png)
+![Alt text](image-18.png)
+
+- Got Correspondances for the two image
+![Alt text](image-19.png)
+![Alt text](image-20.png)
+
 ### Adding all together
 - Our code essentially takes the input image, applies a binary threshold to create a mask, and then replaces the pixel values in the resulting mask with the corresponding pixel values from the input image, resulting in a modified black image where only the pixels that satisfy the specified threshold are preserved.
 ![Alt text](images/2.png)
