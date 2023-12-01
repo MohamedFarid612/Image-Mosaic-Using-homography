@@ -112,25 +112,33 @@ The function returns the final warped image (ret_img) after handling both forwar
 ![Alt text](image-11.png)
 ![Alt text](image-12.png)
 - Got Correspondances for the two image
+
 - Calculated the Homography matrix
+
 - warped the right-most one
+
 ![Alt text](image-14.png)
 - Added them to one image
+
 ![Alt text](image-15.png)
 
 
 - Secondly we Warped the formed panorama to be added to the up-most image
+
 ![Alt text](image-17.png)
 ![Alt text](image-18.png)
 
 - Got Correspondances for the two image
+
 ![Alt text](image-19.png)
 ![Alt text](image-20.png)
 
 - warped the panorama one
+
 ![Alt text](image-21.png)
 
 - Added them to one image
+
 ![Alt text](image-22.png)
 
 ### Adding all together
